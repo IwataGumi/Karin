@@ -1,0 +1,21 @@
+version: "3"
+services:
+  voicevox_engine:
+    image: voicevox/voicevox_engine
+    ports:
+      - "50021:50021"
+    tty: true
+
+  discord_bot:
+    restart: always
+    build: .
+    container_name: 'python'
+    working_dir: '/root/Gachiniii'
+    tty: true
+    command: nodemon src/main.py
+    volumes:
+      - .:/root/Gachiniii
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - voicevox_engine
