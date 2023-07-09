@@ -9,13 +9,14 @@ services:
   discord_bot:
     restart: always
     build: .
-    container_name: 'python'
+    container_name: 'discord_bot'
     working_dir: '/root/Gachiniii'
     tty: true
-    command: nodemon src/main.py
+    command: nodemon --watch src src/main.py
     volumes:
       - .:/root/Gachiniii
     environment:
       - CHOKIDAR_USEPOLLING=true
     depends_on:
       - voicevox_engine
+
