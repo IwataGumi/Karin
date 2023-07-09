@@ -6,6 +6,7 @@ from discord import AutoShardedClient, Intents, app_commands
 from config import LOGURU_FILTER_TYPE
 from intercept_logging import InterceptHandler
 
+
 class Gachiniii:
     def __init__(self, token: str):
         self.token: str = token
@@ -23,7 +24,9 @@ class Gachiniii:
         self.logging_handler = logging.basicConfig(
             handlers=[
                 InterceptHandler(),
-            ], level=0, force=True
+            ],
+            level=0,
+            force=True,
         )
 
         # Filter the log type of stdout in loguru
@@ -35,7 +38,5 @@ class Gachiniii:
 
     def run(self):
         self.client.run(
-            token=self.token,
-            reconnect=True,
-            log_handler=self.logging_handler
+            token=self.token, reconnect=True, log_handler=self.logging_handler
         )
