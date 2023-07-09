@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   voicevox_engine:
     image: voicevox/voicevox_engine
@@ -6,16 +7,35 @@ services:
       - "50021:50021"
     tty: true
 
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db-store:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: discord_bot_db
+
   discord_bot:
     restart: always
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/python/Dockerfile
     container_name: 'discord_bot'
     working_dir: '/root/gachiniii'
     tty: true
-    command: nodemon --watch . run.py
+    command: bash -c "alembic upgrade head && nodemon --watch . run.py"
     volumes:
       - .:/root/gachiniii
     environment:
       - CHOKIDAR_USEPOLLING=true
     depends_on:
       - voicevox_engine
+      - db
+
+volumes:
+  db-store:
