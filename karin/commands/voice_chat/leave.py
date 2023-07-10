@@ -1,12 +1,13 @@
 from loguru import logger
 from discord import Interaction
 
-from karin import discord_bot, _
-from karin.config import DISCORD_BOT_NAME
+from karin import discord_bot
+from karin.translate import _
+from karin.const import DISCORD_BOT_NAME
 
 
 @discord_bot.tree.command(
-    name="vc-leave", description=_("ja", "command.vc_leave.description")
+    name="vc-leave", description="command.vc_leave.description"
 )
 async def vc_leave(interaction: Interaction):
     logger.info("Executed /vc-leave command")

@@ -1,19 +1,17 @@
-from pyi18n import PyI18n
-from loguru import logger
-from karin.karin import Karin
 from sqlalchemy import create_engine, URL
-from pyi18n.loaders import PyI18nYamlLoader
-from karin.config import DISCORD_API_TOKEN
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 
-from karin.config import (
+
+from karin.karin import Karin
+from karin.const import DISCORD_API_TOKEN
+from karin.const import (
     POSTGRES_DRIVER,
     POSTGRES_HOST,
     POSTGRES_PORT,
     POSTGRES_USER,
     POSTGRES_PASSWORD,
-    POSTGRES_DB,
-    LOCALS_FILE_PATH,
+    POSTGRES_DB
 )
 
 discord_bot = Karin(token=DISCORD_API_TOKEN)
@@ -26,14 +24,20 @@ db_url = URL.create(
     database=POSTGRES_DB,
 )
 db_engine = create_engine(db_url)
+Session = scoped_session(
+    sessionmaker(
+        autoflush=True,
+        autocommit=False,
+        bind=db_engine,
+    )
+)
 Base = declarative_base()
+Base.query = Session.query_property()
 
-# i18n support
-loader: PyI18nYamlLoader = PyI18nYamlLoader(LOCALS_FILE_PATH, namespaced=True)
-i18n = PyI18n(("ja", "en"), loader=loader)
-_: callable = i18n.gettext
+from karin.translate import *
 
 # Register the client commands
+from karin.events import *
 from karin.commands import *
 
 # Register the models
