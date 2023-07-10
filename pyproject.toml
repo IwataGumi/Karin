@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gachiniii"
+name = "karin"
 version = "0.1.0"
 description = "IwataGumi Discord Bot"
 authors = ["IwataGumi Member"]

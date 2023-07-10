@@ -24,9 +24,9 @@ ENV LC_ALL ja_JP.UTF-8
 ENV TZ JST-9
 ENV TERM xterm
 
-RUN mkdir -p /root/gachiniii
+RUN mkdir -p /root/karin
 
-WORKDIR /root/gachiniii
+WORKDIR /root/karin
 # Install Dependencies
 
 # Install nodemon
@@ -36,8 +36,8 @@ RUN npm install -g nodemon
 RUN apt install -y ffmpeg
 
 # Install poetry
-COPY poetry.lock /root/gachiniii/
-COPY pyproject.toml /root/gachiniii/
+COPY poetry.lock /root/karin/
+COPY pyproject.toml /root/karin/
 
 RUN pip install poetry
 ENV PATH="/root/.local/bin:$PATH"

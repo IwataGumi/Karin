@@ -26,11 +26,11 @@ services:
       context: .
       dockerfile: ./docker/python/Dockerfile
     container_name: 'discord_bot'
-    working_dir: '/root/gachiniii'
+    working_dir: '/root/karin'
     tty: true
     command: bash -c "alembic upgrade head && nodemon --delay 4500 --watch . run.py"
     volumes:
-      - .:/root/gachiniii
+      - .:/root/karin
     environment:
       - CHOKIDAR_USEPOLLING=true
     depends_on:

@@ -1,7 +1,7 @@
 import sqlalchemy_utils
 from loguru import logger
 from sqlalchemy import URL
-from gachiniii import db_url, Base
+from karin import db_url, Base
 
 
 from logging.config import fileConfig

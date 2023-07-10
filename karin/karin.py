@@ -3,11 +3,11 @@ import logging
 from loguru import logger
 from discord import AutoShardedClient, Intents, app_commands
 
-from gachiniii.config import LOGURU_FILTER_TYPE
-from gachiniii.intercept_logging import InterceptHandler
+from karin.config import LOGURU_FILTER_TYPE
+from karin.intercept_logging import InterceptHandler
 
 
-class Gachiniii:
+class Karin:
     def __init__(self, token: str):
         self.token: str = token
         self.intents = Intents.all()

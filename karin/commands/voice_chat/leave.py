@@ -1,8 +1,8 @@
 from loguru import logger
 from discord import Interaction
 
-from gachiniii import discord_bot, _
-from gachiniii.config import DISCORD_BOT_NAME
+from karin import discord_bot, _
+from karin.config import DISCORD_BOT_NAME
 
 
 @discord_bot.tree.command(

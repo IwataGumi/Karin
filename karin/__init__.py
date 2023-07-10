@@ -1,12 +1,12 @@
 from pyi18n import PyI18n
 from loguru import logger
-from gachiniii.gachiniii import Gachiniii
+from karin.karin import Karin
 from sqlalchemy import create_engine, URL
 from pyi18n.loaders import PyI18nYamlLoader
-from gachiniii.config import DISCORD_API_TOKEN
+from karin.config import DISCORD_API_TOKEN
 from sqlalchemy.ext.declarative import declarative_base
 
-from gachiniii.config import (
+from karin.config import (
     POSTGRES_DRIVER,
     POSTGRES_HOST,
     POSTGRES_PORT,
@@ -16,7 +16,7 @@ from gachiniii.config import (
     LOCALS_FILE_PATH,
 )
 
-discord_bot = Gachiniii(token=DISCORD_API_TOKEN)
+discord_bot = Karin(token=DISCORD_API_TOKEN)
 db_url = URL.create(
     drivername=POSTGRES_DRIVER,
     username=POSTGRES_USER,
@@ -34,7 +34,7 @@ i18n = PyI18n(("ja", "en"), loader=loader)
 _: callable = i18n.gettext
 
 # Register the client commands
-from gachiniii.commands import *
+from karin.commands import *
 
 # Register the models
-from gachiniii.models import *
+from karin.models import *
