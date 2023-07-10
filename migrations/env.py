@@ -16,7 +16,9 @@ from alembic import context
 config = context.config
 
 
-config.set_main_option("sqlalchemy.url", URL.render_as_string(db_url, hide_password=False))
+config.set_main_option(
+    "sqlalchemy.url", URL.render_as_string(db_url, hide_password=False)
+)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -38,9 +40,7 @@ target_metadata = Base.metadata
 def render_item(type_, obj, autogen_context):
     """Apply custom rendering for selected items."""
 
-    if type_ == "type" and isinstance(
-        obj, sqlalchemy_utils.types.uuid.UUIDType
-    ):
+    if type_ == "type" and isinstance(obj, sqlalchemy_utils.types.uuid.UUIDType):
         autogen_context.imports.add("import sqlalchemy_utils")
         autogen_context.imports.add("import uuid")
         return "sqlalchemy_utils.types.uuid.UUIDType(binary=False)\
@@ -88,7 +88,9 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata, render_item=render_item,
+            connection=connection,
+            target_metadata=target_metadata,
+            render_item=render_item,
         )
 
         with context.begin_transaction():
