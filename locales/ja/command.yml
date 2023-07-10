@@ -1,0 +1,9 @@
+vc_join:
+  description: ボイスチャットに接続させる。
+  not_found_call: "{bot_name}は通話が見つけられないよぉ、、＞＜"
+  join_call: "任せて！今から参加するね！！"
+  already_in_call: "{bot_name}はすでに通話に入ってるよ？"
+vc_leave:
+  description: ボイスチャットから切断させる。
+  not_joined: "{bot_name}は、今通話入ってないよ～！！"
+  leave_call: "ばいばい～！また必要になったら呼んでね！"

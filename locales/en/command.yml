@@ -1,0 +1,9 @@
+vc_join:
+  description: Connect to voice chat.
+  not_found_call: "I can't find the call, ><"
+  join_call: "I'll join you now!"
+  already_in_call: "I'm already on the call."
+vc_leave:
+  description: Disconnect the bot from voice chat
+  not_joined: I'm not in the call right now!
+  leave_call: "Bye-bye~! Call me if you need me again!"
