@@ -6,6 +6,7 @@ from discord import AutoShardedClient, Intents, app_commands
 from gachiniii.config import LOGURU_FILTER_TYPE
 from gachiniii.intercept_logging import InterceptHandler
 
+
 class Gachiniii:
     def __init__(self, token: str):
         self.token: str = token
