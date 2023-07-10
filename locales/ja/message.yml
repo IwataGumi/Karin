@@ -1,0 +1,5 @@
+self_introduction: |
+  私の名前は{bot_name}だよー！いろいろサポートするから頼ってね！！
+  `/help`でいろいろコマンドの使い方が見れるよ！！
+rejoin: "{bot_name}はまた会えてうれしいよ！！！"
+selected_language: "{selected_lang}が選択されたよ！ありがとうね！！"

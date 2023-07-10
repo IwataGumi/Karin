@@ -7,3 +7,4 @@ vc_leave:
   description: Disconnect the bot from voice chat
   not_joined: I'm not in the call right now!
   leave_call: "Bye-bye~! Call me if you need me again!"
+no_permission: Sorry, you don't have the necessary permissions!

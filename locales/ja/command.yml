@@ -7,3 +7,4 @@ vc_leave:
   description: ボイスチャットから切断させる。
   not_joined: "{bot_name}は、今通話入ってないよ～！！"
   leave_call: "ばいばい～！また必要になったら呼んでね！"
+no_permission: ごめんね、君は必要な権限を持っていないよ！
