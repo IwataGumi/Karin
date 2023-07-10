@@ -1,13 +1,19 @@
 from loguru import logger
 from discord import Interaction
 
-from gachiniii import discord_bot
+from gachiniii import discord_bot, _
+from gachiniii.config import DISCORD_BOT_NAME
 
-@discord_bot.tree.command(name="vc-leave", description="ボイスチャットから切断させる")
+
+@discord_bot.tree.command(
+    name="vc-leave", description=_("ja", "command.vc_leave.description")
+)
 async def vc_leave(interaction: Interaction):
-    logger.info("Executed vc-leave command")
+    logger.info("Executed /vc-leave command")
     if interaction.guild.voice_client is None:
-        await interaction.response.send_message("おれ通話入ってないけど？頭大丈夫？")
+        await interaction.response.send_message(
+            _("ja", "command.vc_leave.not_joined", bot_name=DISCORD_BOT_NAME)
+        )
     else:
         await interaction.guild.voice_client.disconnect()
-        await interaction.response.send_message("やっと終わったわぁ、パチンコ行ってくるから呼ぶなよ")
+        await interaction.response.send_message(_("ja", "command.vc_leave.leave_call"))
