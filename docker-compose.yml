@@ -28,7 +28,7 @@ services:
     container_name: 'discord_bot'
     working_dir: '/root/gachiniii'
     tty: true
-    command: bash -c "alembic upgrade head && nodemon --watch . run.py"
+    command: bash -c "alembic upgrade head && nodemon --delay 4500 --watch . run.py"
     volumes:
       - .:/root/gachiniii
     environment:
