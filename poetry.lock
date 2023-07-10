@@ -2041,6 +2041,21 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
+name = "pyi18n-v2"
+version = "1.2.1"
+description = "Simple and easy to use internationalizationlibrary inspired by Ruby i18n"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyi18n-v2-1.2.1.tar.gz", hash = "sha256:c2cbdbdd4b604db9b7ea8164da67ce585b89f0f1960d544ab10f0c91713345fe"},
+    {file = "pyi18n_v2-1.2.1-py3-none-any.whl", hash = "sha256:6ffef8f1c7fc534deaa2953b8a7ae9c2b32c25b62d35df2006aba485deca44c9"},
+]
+
+[package.dependencies]
+PyYAML = ">=6.0"
+
+[[package]]
 name = "pynacl"
 version = "1.5.0"
 description = "Python binding to the Networking and Cryptography (NaCl) library"
@@ -2176,7 +2191,7 @@ files = [
 name = "pyyaml"
 version = "6.0"
 description = "YAML parser and emitter for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -2989,4 +3004,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "3.8.10"
-content-hash = "309ca0ea69221fc4e4a2e9545c5be5bd3861633b2238193053ce9f91618a8ad9"
+content-hash = "9707812d2e1c6ead392369d72e5e7c4f342531511ee499598810fac8f310d853"
