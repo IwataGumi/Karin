@@ -11,7 +11,7 @@ from karin.const import (
     POSTGRES_PORT,
     POSTGRES_USER,
     POSTGRES_PASSWORD,
-    POSTGRES_DB
+    POSTGRES_DB,
 )
 
 discord_bot = Karin()

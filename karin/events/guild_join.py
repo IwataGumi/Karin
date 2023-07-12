@@ -10,6 +10,7 @@ from karin.models import Guilds
 from karin.views import SelectLangView
 from karin.const import DEFAULT_BOT_CONFIG, SUPPORTED_LANGUAGES
 
+
 class GuildJoin(commands.Cog):
     logger = logger.bind(task="GuildJoin")
 
@@ -46,9 +47,8 @@ class GuildJoin(commands.Cog):
             if channel is not None:
                 guild_lang = Guilds.get_lang(guild.id)
                 bot_name = _t(guild_lang, "bot_info.name")
-                await channel.send(
-                    _t(guild_lang, "message.rejoin", bot_name=bot_name)
-                )
+                await channel.send(_t(guild_lang, "message.rejoin", bot_name=bot_name))
+
 
 async def setup(bot: Karin):
     await bot.add_cog(GuildJoin(bot))

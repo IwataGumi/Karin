@@ -4,6 +4,7 @@ from discord.ext import commands
 
 from karin import Karin
 
+
 class ReadMessage(commands.Cog):
     logger = logger.bind(task="ReadMessage")
 

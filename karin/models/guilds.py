@@ -10,7 +10,7 @@ from karin.const import SUPPORTED_LANGUAGES, DEFAULT_BOT_CONFIG
 
 
 class Guilds(Base, TimestampMixin):
-    __tablename__ = 'guilds'
+    __tablename__ = "guilds"
     __table_args__ = {"comment": "Discord Server"}
 
     id = Column(Integer, primary_key=True)
@@ -32,7 +32,7 @@ class Guilds(Base, TimestampMixin):
         return guild_id
 
     @classmethod
-    def get_lang(cls, guild_id: Union[int, str], default: str=None) -> str:
+    def get_lang(cls, guild_id: Union[int, str], default: str = None) -> str:
         guild_id = cls.convert_guild_id(guild_id)
         guild = cls.get_guild(guild_id, default=default)
 
@@ -45,18 +45,16 @@ class Guilds(Base, TimestampMixin):
             with Session() as session:
                 guild = cls.query.filter_by(guild_id=guild_id).one_or_none()
                 if guild is None:
-                    cls.logger.error(
+                    cls.logger.error(f"Not found Guild_id:{guild_id} at Guilds table.")
+                    raise NoResultFound(
                         f"Not found Guild_id:{guild_id} at Guilds table."
                     )
-                    raise NoResultFound(f"Not found Guild_id:{guild_id} at Guilds table.")
 
                 guild.language = lang
                 session.commit()
 
         else:
-            cls.logger.error(
-                f"Not Supported Language: {lang}"
-            )
+            cls.logger.error(f"Not Supported Language: {lang}")
             raise "Not Supported Language"
 
     @classmethod
@@ -70,22 +68,20 @@ class Guilds(Base, TimestampMixin):
 
     @classmethod
     def has_guild(cls, guild_id: Union[int, str]) -> bool:
-        guild_id = cls.convert_guild_id(guild_id) 
+        guild_id = cls.convert_guild_id(guild_id)
         guild = cls.query.filter_by(guild_id=guild_id).one_or_none()
 
         return guild is not None
 
     @classmethod
-    def get_guild(cls, guild_id: Union[int, str], default: Any=None):
-        guild_id = cls.convert_guild_id(guild_id) 
+    def get_guild(cls, guild_id: Union[int, str], default: Any = None):
+        guild_id = cls.convert_guild_id(guild_id)
         guild = cls.query.filter_by(guild_id=guild_id).one_or_none()
         if guild is None:
             if default is not None:
                 return default
 
-            cls.logger.error(
-                f"Not found Guild_id:{guild_id} at Guilds table."
-            )
+            cls.logger.error(f"Not found Guild_id:{guild_id} at Guilds table.")
             raise NoResultFound(f"Not found Guild_id:{guild_id} at Guilds table.")
 
         return guild

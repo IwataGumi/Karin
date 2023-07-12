@@ -5,6 +5,7 @@ from karin.translate import _t
 from karin.models import Guilds
 from karin.const import SUPPORTED_LANGUAGES_WITH_EMOJI
 
+
 class SelectLangView(discord.ui.View):
     def __init__(self, timeout=180):
         super().__init__(timeout=timeout)
@@ -14,10 +15,9 @@ class SelectLangView(discord.ui.View):
         placeholder="Select your language",
         options=[
             discord.SelectOption(emoji=PartialEmoji.from_str(emoji), label=lang)
-            for lang, emoji in SUPPORTED_LANGUAGES_WITH_EMOJI.items() 
-        ]
+            for lang, emoji in SUPPORTED_LANGUAGES_WITH_EMOJI.items()
+        ],
     )
-
     async def select(self, interaction: discord.Interaction, select: discord.ui.Select):
         guild_id = interaction.guild.id
         if interaction.user.guild_permissions.manage_webhooks:
@@ -27,9 +27,11 @@ class SelectLangView(discord.ui.View):
                 _t(
                     guild_lang,
                     "message.selected_language",
-                    selected_lang=SUPPORTED_LANGUAGES_WITH_EMOJI[guild_lang]
+                    selected_lang=SUPPORTED_LANGUAGES_WITH_EMOJI[guild_lang],
                 )
             )
         else:
             guild_lang = Guilds.get_lang(guild_id)
-            await interaction.response.send_message(_t(guild_lang, "command.no_permission"), ephemeral=True)
+            await interaction.response.send_message(
+                _t(guild_lang, "command.no_permission"), ephemeral=True
+            )

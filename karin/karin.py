@@ -9,17 +9,11 @@ from discord.ext import commands
 from karin.const import LOGURU_FILTER_TYPE
 from karin.intercept_logging import InterceptHandler
 
+
 class Karin(commands.Bot):
     def __init__(self):
-        super().__init__(
-            command_prefix = '/',
-            intents=Intents.all(),
-            help_command=None
-        )
-        self.initial_extensions = [
-            'karin.events',
-            'karin.commands'
-        ]
+        super().__init__(command_prefix="/", intents=Intents.all(), help_command=None)
+        self.initial_extensions = ["karin.events", "karin.commands"]
 
         # Disable logging output to the terminal
         self.logging_handler = logging.basicConfig(
@@ -51,6 +45,4 @@ class Karin(commands.Bot):
         await self.tree.sync()
 
     def startup(self, token: str, reconnect=True):
-        self.run(
-            token, reconnect=reconnect, log_handler=self.logging_handler
-        )
+        self.run(token, reconnect=reconnect, log_handler=self.logging_handler)

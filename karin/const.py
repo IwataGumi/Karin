@@ -19,9 +19,7 @@ DISCORD_BOT_DESCRIPTION = os.getenv("DISCORD_BOT_DESCRIPTION")
 DISCORD_API_TOKEN = os.getenv("DISCORD_API_TOKEN")
 LOGURU_FILTER_TYPE = os.getenv("LOGURU_FILTER_TYPE")
 DEFAULT_BOT_LANGUAGE = os.getenv("DEFAULT_BOT_LANGUAGE")
-DEFAULT_BOT_CONFIG = {
-    "chat_speaker": 3
-}
+DEFAULT_BOT_CONFIG = {"chat_speaker": 3}
 
 # i18n
 # Check here languages are available in discord.py
