@@ -1,8 +1,8 @@
-from typing import Any, Dict, Union
 from loguru import logger
+from typing import Any, Dict, Union
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy.orm.exc import NoResultFound
 
 from karin import Base, Session
 from karin.models.mixins import TimestampMixin
@@ -18,6 +18,8 @@ class Guilds(Base, TimestampMixin):
     language = Column(String(10), nullable=False, default="en-US")
     config = Column(JSONB, nullable=False, default=DEFAULT_BOT_CONFIG)
 
+    logger = logger.bind(task="GuildsTable")
+
     def __init__(self, guild_id: Union[int, str], language: str, config=Dict[str, Any]):
         self.guild_id = self.convert_guild_id(guild_id)
         self.language = language
@@ -30,9 +32,9 @@ class Guilds(Base, TimestampMixin):
         return guild_id
 
     @classmethod
-    def get_lang(cls, guild_id: Union[int, str], default_value: str=None) -> str:
+    def get_lang(cls, guild_id: Union[int, str], default: str=None) -> str:
         guild_id = cls.convert_guild_id(guild_id)
-        guild = cls.get_guild(guild_id, default_value=default_value)
+        guild = cls.get_guild(guild_id, default=default)
 
         return guild.language
 
@@ -43,9 +45,8 @@ class Guilds(Base, TimestampMixin):
             with Session() as session:
                 guild = cls.query.filter_by(guild_id=guild_id).one_or_none()
                 if guild is None:
-                    logger.error(
-                        f"Not found Guild_id:{guild_id} at Guilds table.",
-                        task="GuildsTable"
+                    cls.logger.error(
+                        f"Not found Guild_id:{guild_id} at Guilds table."
                     )
                     raise NoResultFound(f"Not found Guild_id:{guild_id} at Guilds table.")
 
@@ -53,9 +54,8 @@ class Guilds(Base, TimestampMixin):
                 session.commit()
 
         else:
-            logger.error(
-                f"Not Supported Language: {lang}",
-                task="GuildsTable"
+            cls.logger.error(
+                f"Not Supported Language: {lang}"
             )
             raise "Not Supported Language"
 
@@ -76,16 +76,15 @@ class Guilds(Base, TimestampMixin):
         return guild is not None
 
     @classmethod
-    def get_guild(cls, guild_id: Union[int, str], default_value: Any=None):
+    def get_guild(cls, guild_id: Union[int, str], default: Any=None):
         guild_id = cls.convert_guild_id(guild_id) 
         guild = cls.query.filter_by(guild_id=guild_id).one_or_none()
         if guild is None:
-            if default_value is not None:
-                return default_value
+            if default is not None:
+                return default
 
-            logger.error(
-                f"Not found Guild_id:{guild_id} at Guilds table.",
-                task="GuildsTable"
+            cls.logger.error(
+                f"Not found Guild_id:{guild_id} at Guilds table."
             )
             raise NoResultFound(f"Not found Guild_id:{guild_id} at Guilds table.")
 

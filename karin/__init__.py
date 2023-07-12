@@ -14,7 +14,7 @@ from karin.const import (
     POSTGRES_DB
 )
 
-discord_bot = Karin(token=DISCORD_API_TOKEN)
+discord_bot = Karin()
 db_url = URL.create(
     drivername=POSTGRES_DRIVER,
     username=POSTGRES_USER,
@@ -33,12 +33,3 @@ Session = scoped_session(
 )
 Base = declarative_base()
 Base.query = Session.query_property()
-
-from karin.translate import *
-
-# Register the client commands
-from karin.events import *
-from karin.commands import *
-
-# Register the models
-from karin.models import *

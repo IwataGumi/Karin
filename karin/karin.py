@@ -1,31 +1,25 @@
 import sys
 import logging
 from loguru import logger
-from discord import AutoShardedClient, Intents
-from discord.app_commands import CommandTree
+from discord import Intents
 
-from .translate import MyTranslator
+from discord.ext import commands
+
+
 from karin.const import LOGURU_FILTER_TYPE
 from karin.intercept_logging import InterceptHandler
 
-cogs = ["cogs.roles","cogs.users","cogs.moderation","cogs.ticket-es","cogs.ticket-en"]
-
-class Karin:
-    def __init__(self, token: str):
-        self.token: str = token
-        self.intents = Intents.all()
-        self.client = AutoShardedClient(intents=self.intents)
-        self.tree = CommandTree(self.client)
-
-        @self.client.event
-        async def on_ready():
-            activate_logger = logger.bind(task="activate")
-            activate_logger.info("The discord bot is ready.")
-
-        @self.client.event
-        async def setup_hook():
-            await self.tree.set_translator(MyTranslator())
-            await self.tree.sync()
+class Karin(commands.Bot):
+    def __init__(self):
+        super().__init__(
+            command_prefix = '/',
+            intents=Intents.all(),
+            help_command=None
+        )
+        self.initial_extensions = [
+            'karin.events',
+            'karin.commands'
+        ]
 
         # Disable logging output to the terminal
         self.logging_handler = logging.basicConfig(
@@ -43,7 +37,20 @@ class Karin:
             level=LOGURU_FILTER_TYPE,
         )
 
-    def run(self):
-        self.client.run(
-            token=self.token, reconnect=True, log_handler=self.logging_handler
+    async def on_ready(self):
+        activate_logger = logger.bind(task="activate")
+        activate_logger.info("The discord bot is ready.")
+
+    async def setup_hook(self):
+        for extension in self.initial_extensions:
+            try:
+                await self.load_extension(extension)
+            except Exception as e:
+                logger.error(str(e), task="setup_hook")
+        # await self.tree.set_translator(MyTranslator)
+        await self.tree.sync()
+
+    def startup(self, token: str, reconnect=True):
+        self.run(
+            token, reconnect=reconnect, log_handler=self.logging_handler
         )
