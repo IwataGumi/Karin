@@ -162,3 +162,6 @@ cython_debug/
 samples/
 
 db-store/
+
+# temporary ignore dic
+karin.old/
