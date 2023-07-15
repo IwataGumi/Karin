@@ -12,7 +12,7 @@ services:
       context: .
       dockerfile: ./docker/db/Dockerfile
     ports:
-      - 5432:5432
+      - 5432:5433
     volumes:
       - ./db-store:/var/lib/postgresql/data
     environment:
@@ -34,8 +34,8 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
     depends_on:
-      - voicevox_engine
       - db
+      - voicevox_engine
 
 volumes:
   db-store:
