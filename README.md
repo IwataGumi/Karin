@@ -2,7 +2,9 @@
 
 # Requirement
 Python 3.8.x
+
 postgresql 15.3
+
 ffmpeg 6.0
 
 # Installing
